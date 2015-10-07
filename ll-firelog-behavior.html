@@ -21,12 +21,12 @@
       if(this.fireLogName) {
         type = _.kebabCase(this.fireLogName) + '-' + type;
       }
-      this._log('fired "' + type + '"');
+      this._fireLog('fired "' + type + '"');
       if (detail) {
-        this._log('...with detail', detail, false);
+        this._fireLog('...with detail', detail, false);
       }
       if (options) {
-        this._log('...with options', options, false);
+        this._fireLog('...with options', options, false);
       }
     },
 
