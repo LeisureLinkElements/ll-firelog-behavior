@@ -17,11 +17,11 @@
     },
 
     _fireLogFire: function (type, detail, options) {
-      this.fire(type, detail, options);
       if(this.fireLogName) {
         type = _.kebabCase(this.fireLogName) + '-' + type;
       }
-      this._fireLog('fired "' + type + '"');
+      this.fire(type, detail, options);
+      this._fireLog('Fired "' + type + '"');
       if (detail) {
         this._fireLog('...with detail', detail, false);
       }
