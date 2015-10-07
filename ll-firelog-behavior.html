@@ -1,0 +1,37 @@
+<script>
+  LLBehaviors = LLBehaviors || {};
+  LLBehaviors.FireLogBehavior = {
+
+    properties: {
+
+      // If true, _fireLog will output messages to console.
+      fireLoggingEnabled: {
+        type: Boolean,
+        value: false
+      },
+
+      // Optional. Prepended to all log messages custom event names fired with _fireLogFire.
+      fireLogName: String
+    },
+
+    _fireLogFire: function (type, detail, options) {
+      this.fire(type, detail, options);
+      this._log('fired "' + type + '"');
+      if (detail) {
+        this._log('...with detail', detail, false);
+      }
+      if (options) {
+        this._log('...with options', options, false);
+      }
+    },
+
+    _fireLog: function (msg, obj) {
+      if (this.fireLoggingEnabled) {
+        if (this.fireLogName) {
+          msg = this.fireLogName + ': ' + msg;
+        }
+        console.log(msg, obj || '');
+      }
+    }
+  };
+</script>
