@@ -11,13 +11,16 @@
 
       // Optional.
       // Prepended to console messages output by _fireLog method.
-      // kebab-case version prepended to custom event names fired with _fireLogFire method.
-      fireLogName: String
+      fireLogName: String,
+
+      // Optional.
+      // Prepended to event names fired with _fireLogFire method.
+      fireLogEventPrefix: String
     },
 
     _fireLogFire: function (type, detail, options) {
-      if(this.fireLogName) {
-        type = _.kebabCase(this.fireLogName) + '-' + type;
+      if(this.fireLogEventPrefix) {
+        type = this.fireLogEventPrefix + type;
       }
       this.fire(type, detail, options);
       this._fireLog('Fired "' + type + '"');
