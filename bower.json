@@ -1,0 +1,21 @@
+{
+  "name": "ll-firelog-behavior",
+  "version": "1.0.0",
+  "homepage": "https://github.com/LeisureLinkElements/ll-firelog-behavior",
+  "authors": [],
+  "description": "Simple logger with logged event-firing.",
+  "main": "ll-firelog-behavior.html",
+  "keywords": [
+    "log",
+    "logger",
+    "logging"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ],
+  "dependencies": {
+    "lodash": ">=3.10.1"
+  }
+}

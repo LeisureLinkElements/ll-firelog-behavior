@@ -1,6 +1,6 @@
+<script type="application/javascript" src="../lodash/lodash.js"></script>
 <script>
-  LLBehaviors = LLBehaviors || {};
-  LLBehaviors.FireLogBehavior = {
+  FireLogBehavior = {
 
     properties: {
 
@@ -10,12 +10,17 @@
         value: false
       },
 
-      // Optional. Prepended to all log messages custom event names fired with _fireLogFire.
+      // Optional.
+      // Prepended to console messages output by _fireLog method.
+      // kebab-case version prepended to custom event names fired with _fireLogFire method.
       fireLogName: String
     },
 
     _fireLogFire: function (type, detail, options) {
       this.fire(type, detail, options);
+      if(this.fireLogName) {
+        type = _.kebabCase(this.fireLogName) + '-' + type;
+      }
       this._log('fired "' + type + '"');
       if (detail) {
         this._log('...with detail', detail, false);
