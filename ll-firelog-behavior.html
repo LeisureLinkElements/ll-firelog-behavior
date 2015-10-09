@@ -25,10 +25,10 @@
       this.fire(type, detail, options);
       this._fireLog('Fired "' + type + '"');
       if (detail) {
-        this._fireLog('...with detail', detail, false);
+        this._fireLog('...with detail:', detail, false);
       }
       if (options) {
-        this._fireLog('...with options', options, false);
+        this._fireLog('...with options:', options, false);
       }
     },
 
