@@ -1,24 +1,44 @@
 <script>
   var LeisureLinkBehaviors = LeisureLinkBehaviors || {};
+  /**
+   * Provides method to output messages to console only when fireLog property is set to true.
+   *
+   * Profides way to fire events and log them to console only when fireLog property is set to true.
+   *
+   * @polymerBehavior
+   */
   LeisureLinkBehaviors.FireLogBehavior = {
 
     properties: {
 
-      // If true, _fireLog will output messages to console.
+      /**
+       * If true, _fireLog and _fireLogFire methods will output messages to console.
+       */
       fireLog: {
         type: Boolean,
         value: false
       },
 
-      // Optional.
-      // Prepended to console messages output by _fireLog method.
+      /**
+       * Optional string to prepend to console messages output by _fireLog method.
+       */
       fireLogName: String,
 
-      // Optional.
-      // Prepended to event names fired with _fireLogFire method.
+
+      /**
+       * Optional string to prepend to event types fired with _fireLogFire method.
+       */
       fireLogEventPrefix: String
     },
 
+    /**
+     * Fire an event and output event type, details and options using _fireLog method.
+     *
+     * @param type {string}
+     * @param detail {object}
+     * @param options {object}
+     * @private
+     */
     _fireLogFire: function (type, detail, options) {
       if(this.fireLogEventPrefix) {
         type = this.fireLogEventPrefix + type;
@@ -33,6 +53,13 @@
       }
     },
 
+    /**
+     * Output message to console if fireLog property set to true.
+     *
+     * @param msg {string}
+     * @param obj {object} Optional object to output after message.
+     * @private
+     */
     _fireLog: function (msg, obj) {
       if (this.fireLog) {
         if (this.fireLogName) {

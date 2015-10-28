@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="parent-element.html">
+</head>
+<body>
+
+<script>
+
+  describe('when a parent element with this behavior contains a conditional template that is initially unstamped, and the template contains a child element with this behavior whose id is "myChild"', function () {
+
+    var parentEl;
+
+    beforeEach(function () {
+      doneCalled = false;
+      parentEl = new ParentElement();
+      parentEl.setAttribute('id', 'theParent');
+      document.body.appendChild(parentEl);
+    });
+
+    afterEach(function () {
+      document.body.removeChild(parentEl);
+    });
+
+    describe('and the parent calls "seanceBegin(childId, \'attached\', {myNumber: 5})", and then stamps the conditional template', function () {
+
+      it('the child\'s myNumber property should equal 5 after it is attached', function (done) {
+
+        parentEl.seanceBegin('theChild', 'attached', {myNumber: 5});
+
+        parentEl.addEventListener('seance-entity-theParent-seance-complete', function () {
+          var theChild = parentEl.$$('#theChild');
+          expect(theChild).to.be.ok;
+          expect(theChild.myNumber).to.eql(5);
+          done();
+        });
+
+        parentEl.revealChild = true;
+
+      });
+
+    });
+
+    describe('and the parent calls "seanceBegin(childId, \'ready\', null, aNiceCallback)", and then stamps the conditional template', function () {
+
+      it('the parent should call it\'s own aNiceCallBack method after the child is ready', function (done) {
+
+        parentEl.seanceBegin('theChild', 'attached', null, parentEl.aNiceCallback);
+        var doneCalled = false;
+
+        window.addEventListener('aNiceCallback-called', function () {
+          done();
+        });
+
+        parentEl.revealChild = true;
+      });
+
+    });
+
+  });
+
+
+</script>
+
+</body>
+</html>
