@@ -7,58 +7,45 @@
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
 
-  <link rel="import" href="parent-element.html">
+  <link rel="import" href="test-element.html">
+
 </head>
 <body>
 
 <script>
 
-  describe('when a parent element with this behavior contains a conditional template that is initially unstamped, and the template contains a child element with this behavior whose id is "myChild"', function () {
+  describe('when and element calls _fireLogFire', function () {
 
-    var parentEl;
+    var myEl = new TestElement();
 
-    beforeEach(function () {
-      doneCalled = false;
-      parentEl = new ParentElement();
-      parentEl.setAttribute('id', 'theParent');
-      document.body.appendChild(parentEl);
-    });
+    describe('when the fireLog property is false', function () {
 
-    afterEach(function () {
-      document.body.removeChild(parentEl);
-    });
+      it('_fireLogFire method should not fire an event', function (done) {
 
-    describe('and the parent calls "seanceBegin(childId, \'attached\', {myNumber: 5})", and then stamps the conditional template', function () {
+        this.timeout(500);
 
-      it('the child\'s myNumber property should equal 5 after it is attached', function (done) {
-
-        parentEl.seanceBegin('theChild', 'attached', {myNumber: 5});
-
-        parentEl.addEventListener('seance-entity-theParent-seance-complete', function () {
-          var theChild = parentEl.$$('#theChild');
-          expect(theChild).to.be.ok;
-          expect(theChild.myNumber).to.eql(5);
-          done();
+        myEl.addEventListener('hello', function (evt) {
+          setTimeout(done, 300);
         });
 
-        parentEl.revealChild = true;
+        myEl.callFireLogFire('hello');
 
       });
 
     });
 
-    describe('and the parent calls "seanceBegin(childId, \'ready\', null, aNiceCallback)", and then stamps the conditional template', function () {
+    describe('when the fireLog property is true', function () {
 
-      it('the parent should call it\'s own aNiceCallBack method after the child is ready', function (done) {
+      myEl.fireLog = true;
 
-        parentEl.seanceBegin('theChild', 'attached', null, parentEl.aNiceCallback);
-        var doneCalled = false;
+      it('_fireLogFire method should fire an event', function (done) {
 
-        window.addEventListener('aNiceCallback-called', function () {
+        myEl.addEventListener('hey', function (evt) {
           done();
         });
 
-        parentEl.revealChild = true;
+        myEl.callFireLogFire('hey');
+
       });
 
     });

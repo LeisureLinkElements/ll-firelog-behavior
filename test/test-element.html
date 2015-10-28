@@ -6,19 +6,20 @@
 
 <script>
 
-  DemoElement = Polymer({
+  TestElement = Polymer({
 
     is: 'test-element',
 
-    behaviors: [LeisureLinkBehaviors.SeanceBehavior],
+    behaviors: [LeisureLinkBehaviors.FireLogBehavior],
 
     properties: {
 
-      myNumber: {
-        type: Number,
-        value: 0
-      }
+      fireLog: false
 
+    },
+
+    callFireLogFire: function(eventType) {
+      this._fireLogFire(eventType);
     }
 
   });
